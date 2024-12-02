@@ -69,3 +69,24 @@ displays:
 #+begin_quote
 [ Info: Received new data from Julia Symbol Server.
 #+end_quote
+
+*** Do I have to wait for a new release to update the server's dependencies?
+No, you can manually update the self-contained julia environment that eglot-jl
+is configured to create by default. Using the REPL, as an example:
+
+#+begin_src julia
+julia> using Pkg
+julia> cd("/home/username/.emacs.d/elpa/eglot-jl-20211208.359/") # where your version of eglot-jl is
+julia> Pkg.activate(".")
+julia> Pkg.update()
+#+end_src
+
+This will update the dependencies of the server to latest compatible version.
+Note that LanguageServer.jl itself won't be automatically updated if its major
+version has increased, as major versions are explicitly specified in the
+[compat] section of Project.toml. Depending on what breaking changes a new major
+version of LanguageServer.jl includes, altering the code in eglot-jl may be
+necessary before we can safely add a new major version as being compatible in
+our Project.toml.
+
+
